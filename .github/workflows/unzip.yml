@@ -1,46 +1,34 @@
-name: Auto Unzip File
+name: Auto Unzip
 
 on:
   push:
-    paths:
-      - '**.zip'
+    branches:
+      - main
+  workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  unzip-and-push:
+  unzip:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Unzip File
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extract ZIP files
         run: |
-          for file in *.zip; do
-            if [ -f "$file" ]; then
-              echo "Unzipping $file..."
-              unzip -o "$file"
-              rm "$file"
-            fi
+          find . -name "*.zip" | while read zip; do
+            dir="${zip%.zip}"
+            mkdir -p "$dir"
+            unzip -o "$zip" -d "$dir"
+            rm "$zip"
           done
 
-      - name: Commit & Push changes
+      - name: Commit changes
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add .
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "Auto-unzipped files by GitHub Actions"
-            git push origin HEAD:${{ github.ref }}
-          fi
-
-on:
-  workflow_dispatch:
-  push:
-    branches:
-      - main
+          git diff --cached --quiet || git commit -m "Auto extract ZIP files"
+          git push
