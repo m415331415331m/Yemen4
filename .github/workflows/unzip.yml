@@ -38,3 +38,9 @@ jobs:
             git commit -m "Auto-unzipped files by GitHub Actions"
             git push origin HEAD:${{ github.ref }}
           fi
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
