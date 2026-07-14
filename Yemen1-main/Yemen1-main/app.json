@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "رصيدي",
-    "slug": "rasidi",
+    "name": "Mahmoud",
+    "slug": "mahmoud",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -16,7 +16,11 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.mahmoud.rasidi"
+      "package": "com.mahmoud.rasidi",
+      "permissions": [
+        "android.permission.USE_BIOMETRIC",
+        "android.permission.USE_FINGERPRINT"
+      ]
     },
     "web": {
       "bundler": "metro",
