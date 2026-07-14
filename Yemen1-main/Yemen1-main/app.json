@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Mahmoud",
+    "name": "رصيدي",
     "slug": "mahmoud",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -40,6 +40,11 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "634354c4-727c-473d-9860-2ff8c0677840"
+      }
     }
   }
 }
